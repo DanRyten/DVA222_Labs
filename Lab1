@@ -13,7 +13,7 @@ namespace NPuzzle
         static void Main()
         {
             int size = Int32.Parse(Console.ReadLine());
-            
+
 
             Board board = new Board(size);
             Board solution = new Board(size);
@@ -30,11 +30,17 @@ namespace NPuzzle
 
         }
     }
-
+    enum KeyStroke
+    {
+        Right,
+        Left,
+        Up,
+        Down
+    }
     /*Construct board of unknown size
      Move space acording to input
      Print board*/
-    class Board 
+    class Board
     {
         int boardS;
         int[,] gameboard;
@@ -51,12 +57,12 @@ namespace NPuzzle
                         gameboard[i, j] = 0;
                         break;
                     }
-                        
+
                     gameboard[i, j] = (i * size + j + 1);
                 }
             }
-        }  
-        
+        }
+
         public void Display()
         {
             Console.WriteLine("-----------------------------------");
@@ -64,7 +70,7 @@ namespace NPuzzle
             {
                 for (int j = 0; j < boardS; j++)
                 {
-                    Console.Write(gameboard[i,j]);
+                    Console.Write(gameboard[i, j]);
                     Console.Write("\t");
 
                 }
@@ -114,19 +120,19 @@ namespace NPuzzle
                     switch (key.Key)
                     {
                         case ConsoleKey.LeftArrow:
-                            Console.WriteLine("L");
+                            Console.WriteLine(KeyStroke.Left);
                             Console.WriteLine("Press one of the arrow keys or ESC to exit:");
                             break;
                         case ConsoleKey.RightArrow:
-                            Console.WriteLine("R");
+                            Console.WriteLine(KeyStroke.Right);
                             Console.WriteLine("Press one of the arrow keys or ESC to exit:");
                             break;
                         case ConsoleKey.UpArrow:
-                            Console.WriteLine("U");
+                            Console.WriteLine(KeyStroke.Up);
                             Console.WriteLine("Press one of the arrow keys or ESC to exit:");
                             break;
                         case ConsoleKey.DownArrow:
-                            Console.WriteLine("D");
+                            Console.WriteLine(KeyStroke.Down);
                             Console.WriteLine("Press one of the arrow keys or ESC to exit:");
                             break;
                         case ConsoleKey.Escape:
