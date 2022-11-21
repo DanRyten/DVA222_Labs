@@ -9,16 +9,104 @@ namespace NPuzzle
 {
     class Startup
     {
+        /*Start up the program*/
         static void Main()
         {
-            Console.WriteLine("What size of board do you want?");
             int size = Int32.Parse(Console.ReadLine());
-            Board board = new Board(size);
+            
 
-            int FPS = 10;
-            bool Running = true;
+            Board board = new Board(size);
+            Board solution = new Board(size);
+
+            board.Display();
+            /*
+             * for(i=0; i<(size*size); i++){
+             * board.Move(player.Shuffle(size))
+            }
+             */
+            Clock clock = new Clock(board, solution);
+            clock.Running();
+
+
+        }
+    }
+
+    /*Construct board of unknown size
+     Move space acording to input
+     Print board*/
+    class Board 
+    {
+        int boardS;
+        int[,] gameboard;
+        public Board(int size)
+        {
+            boardS = size;
+            gameboard = new int[size, size];
+            for (int i = 0; i < size; i++)
+            {
+                for (int j = 0; j < size; j++)
+                {
+                    if (i == size - 1 & j == size - 1)
+                    {
+                        gameboard[i, j] = 0;
+                        break;
+                    }
+                        
+                    gameboard[i, j] = (i * size + j + 1);
+                }
+            }
+        }  
+        
+        public void Display()
+        {
+            Console.WriteLine("-----------------------------------");
+            for (int i = 0; i < boardS; i++)
+            {
+                for (int j = 0; j < boardS; j++)
+                {
+                    Console.Write(gameboard[i,j]);
+                    Console.Write("\t");
+
+                }
+                Console.WriteLine();
+            }
+            Console.WriteLine("-----------------------------------");
+
+        }
+    }
+
+    /*Take input from player
+      Create randomized input
+      Send both to board*/
+    class Player
+    {
+
+    }
+
+    /*Loop while playing the game
+      Check if won*/
+    class Clock
+    {
+        int FPS;
+        bool win;
+        Board board;
+        Board solution;
+
+        public Clock(Board board1, Board solution1)
+        {
+            FPS = 10;
+            win = false;
+            board = board1;
+            solution = solution1;
+
+
+        }
+        public void Running()
+        {
+
+
             Console.WriteLine("Press one of the arrow keys or ESC to exit:");
-            while (Running)
+            while (!win)
             {
                 if (Console.KeyAvailable)
                 {
@@ -26,7 +114,6 @@ namespace NPuzzle
                     switch (key.Key)
                     {
                         case ConsoleKey.LeftArrow:
-                            
                             Console.WriteLine("L");
                             Console.WriteLine("Press one of the arrow keys or ESC to exit:");
                             break;
@@ -43,7 +130,7 @@ namespace NPuzzle
                             Console.WriteLine("Press one of the arrow keys or ESC to exit:");
                             break;
                         case ConsoleKey.Escape:
-                            Running = false;
+                            win = true;
                             Console.WriteLine("\nBYE!");
                             break;
                     }
@@ -51,50 +138,6 @@ namespace NPuzzle
                 // wait 100ms before checking if a key has been pressed
                 Thread.Sleep(1000 / FPS);
             }
-
-
         }
-    }
-    class Tile
-    {
-        int val;
-        public Tile(int x)
-        {
-            val = x;
-        }
-    }
-
-    class Board
-    {
-
-        public Board(int size)
-        {
-            Tile[,] gameboard = new Tile[size, size];
-            for (int i = 0; i < size; i++)
-            {
-                for (int j = 0; j < size; j++)
-                {
-                    if (i == size - 1 & j == size - 1)
-                    {
-                        gameboard[i, j] = new Tile(0);
-                        break;
-                    }
-
-                    int val = i * size + j + 1;
-                    gameboard[i, j] = new Tile(val);
-                }
-            }
-        }
-    }
-    class Player
-    {
-        enum Keys
-        {
-            Left = 0,
-            Right = 1,
-            Up = 2,
-            Down = 3
-        }
-
     }
 }
