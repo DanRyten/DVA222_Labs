@@ -20,7 +20,7 @@ namespace NPuzzle
 
             board.Display();
             // for(int i=0; i<(size*size); i++){
-            //    board.Move(rnd.Next(4));
+                 //    board.Move((KeyStroke)rnd.Next(4));
             //}
             Clock clock = new Clock(board, solution);
             clock.Running();
