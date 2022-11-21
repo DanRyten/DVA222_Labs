@@ -1,1 +1,100 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Threading;
 
+namespace NPuzzle
+{
+    class Startup
+    {
+        static void Main()
+        {
+            Console.WriteLine("What size of board do you want?");
+            int size = Int32.Parse(Console.ReadLine());
+            Board board = new Board(size);
+
+            int FPS = 10;
+            bool Running = true;
+            Console.WriteLine("Press one of the arrow keys or ESC to exit:");
+            while (Running)
+            {
+                if (Console.KeyAvailable)
+                {
+                    var key = Console.ReadKey(true);
+                    switch (key.Key)
+                    {
+                        case ConsoleKey.LeftArrow:
+                            
+                            Console.WriteLine("L");
+                            Console.WriteLine("Press one of the arrow keys or ESC to exit:");
+                            break;
+                        case ConsoleKey.RightArrow:
+                            Console.WriteLine("R");
+                            Console.WriteLine("Press one of the arrow keys or ESC to exit:");
+                            break;
+                        case ConsoleKey.UpArrow:
+                            Console.WriteLine("U");
+                            Console.WriteLine("Press one of the arrow keys or ESC to exit:");
+                            break;
+                        case ConsoleKey.DownArrow:
+                            Console.WriteLine("D");
+                            Console.WriteLine("Press one of the arrow keys or ESC to exit:");
+                            break;
+                        case ConsoleKey.Escape:
+                            Running = false;
+                            Console.WriteLine("\nBYE!");
+                            break;
+                    }
+                }
+                // wait 100ms before checking if a key has been pressed
+                Thread.Sleep(1000 / FPS);
+            }
+
+
+        }
+    }
+    class Tile
+    {
+        int val;
+        public Tile(int x)
+        {
+            val = x;
+        }
+    }
+
+    class Board
+    {
+
+        public Board(int size)
+        {
+            Tile[,] gameboard = new Tile[size, size];
+            for (int i = 0; i < size; i++)
+            {
+                for (int j = 0; j < size; j++)
+                {
+                    if (i == size - 1 & j == size - 1)
+                    {
+                        gameboard[i, j] = new Tile(0);
+                        break;
+                    }
+
+                    int val = i * size + j + 1;
+                    gameboard[i, j] = new Tile(val);
+                }
+            }
+        }
+    }
+    class Player
+    {
+        enum Keys
+        {
+            Left = 0,
+            Right = 1,
+            Up = 2,
+            Down = 3
+        }
+
+    }
+}
