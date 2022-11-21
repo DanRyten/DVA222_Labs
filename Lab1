@@ -12,21 +12,18 @@ namespace NPuzzle
         /*Start up the program*/
         static void Main()
         {
-            int size = Int32.Parse(Console.ReadLine());
-
+             int size = Int32.Parse(Console.ReadLine());
+            Random rnd = new Random();
 
             Board board = new Board(size);
             Board solution = new Board(size);
 
             board.Display();
-            /*
-             * for(i=0; i<(size*size); i++){
-             * board.Move(player.Shuffle(size))
-            }
-             */
+            // for(int i=0; i<(size*size); i++){
+            //    board.Move(rnd.Next(4));
+            //}
             Clock clock = new Clock(board, solution);
             clock.Running();
-
 
         }
     }
